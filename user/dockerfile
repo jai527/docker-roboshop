@@ -1,6 +1,7 @@
-from nodejs:20.0
+from node:20
 WORKDIR /app
-copy static .
+copy package.json
+copy *.js .
 RUN npm install
 ENV mongo="true" \
     REDIS_URL='redis://redis:6379' \
