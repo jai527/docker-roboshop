@@ -1,4 +1,5 @@
 services:
+
   catalogue:
     build:
       context: ./catalogue
@@ -8,15 +9,15 @@ services:
     depends_on:
       - mongodb
 
-  user: 
-    build: 
+  user:
+    build:
       context: ./user
       dockerfile: dockerfile
     image: jayashankar1994/user:1.0.0
     container_name: user
     depends_on:
-    - redis
-  
+      - redis
+
   cart:
     build:
       context: ./cart
@@ -24,21 +25,21 @@ services:
     image: jayashankar1994/cart:1.0.0
     container_name: cart
     depends_on:
-    - redis
-  
+      - redis
+
   frontend:
     build:
       context: ./frontend
       dockerfile: dockerfile
     image: jayashankar1994/frontend:1.0.0
     container_name: frontend
-    ports: 
-    - "80:80"
+    ports:
+      - "80:80"
     depends_on:
-    - mongodb
-    - user
-    - cart
-    - catalogue
+      - mongodb
+      - user
+      - cart
+      - catalogue
 
   mongodb:
     build:
@@ -50,7 +51,7 @@ services:
   redis:
     image: redis:7.0
     container_name: redis
-  
+
   mysql:
     build:
       context: ./mysql
@@ -64,24 +65,27 @@ services:
       dockerfile: dockerfile
     image: jayashankar1994/shipping:1.0.0
     container_name: shipping
-    depends:
-    - mysql
-    - cart
-  
+    depends_on:
+      - mysql
+      - cart
+
   rabbitmq:
-    image: rabbitmq:3
+    image: rabbitmq:3-management
+    container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
-    container_name: rabbitmq
-  
+
   payment:
     build:
-    context: ./payment
-    dockerfile: dockerfile
-  image: jayashankar1994/payment:1.0.0
-  cotainer_name: payment
-  
+      context: ./payment
+      dockerfile: dockerfile
+    image: jayashankar1994/payment:1.0.0
+    container_name: payment
+    depends_on:
+      - rabbitmq
+      - cart
+
 networks:
   default:
     driver: bridge
