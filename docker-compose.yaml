@@ -8,12 +8,38 @@ services:
     depends_on:
       - mongodb
 
+  user: 
+    build: 
+      conetxt: ./user
+      dockerfile: dockerfile
+    image: jayashankar1994/user:1.0.0
+    container_name: user
+    depends_on:
+    - redis
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    image: jayashankar1994/frontend:1.0.0
+    container_name: frontend
+    ports: 
+    - "80:80"
+    depends_on:
+    - mongodb
+    - user
+    - catalogue
+
   mongodb:
     build:
       context: ./mongodb
       dockerfile: Dockerfile
     image: jayashankar1994/mongodb:1.0.0
     container_name: mongodb
+
+  redis:
+    image: redis:7.0
+    container_name: redis
 
 networks:
   default:
