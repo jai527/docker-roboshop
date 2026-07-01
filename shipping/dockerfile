@@ -1,5 +1,6 @@
 from maven:3.9.14
 WORKDIR /app
+copy pom.xml .
 copy db .
 copy src .
 RUN mvn clean package 
