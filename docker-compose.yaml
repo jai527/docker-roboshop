@@ -37,6 +37,7 @@ services:
     depends_on:
     - mongodb
     - user
+    - cart
     - catalogue
 
   mongodb:
@@ -49,6 +50,13 @@ services:
   redis:
     image: redis:7.0
     container_name: redis
+  
+  mysql:
+    build:
+      context: ./mysql
+      dockerfile: dockerfile
+    image: jayashankar1994/mysql:1.0.0
+    continer_name: mysql
 
 networks:
   default:
