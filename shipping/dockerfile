@@ -1,8 +1,8 @@
-from maven:3.9.14
+FROM maven:3.9.14
 WORKDIR /app
-copy pom.xml .
-copy db .
-copy src .
+COPY pom.xml .
+COPY db .
+COPY src .
 RUN mvn clean package 
 RUN mv target/shipping-1.0.jar shipping.jar
 ENV CART_ENDPOINT="cart:8080" \
