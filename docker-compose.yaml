@@ -58,6 +58,13 @@ services:
     image: jayashankar1994/mysql:1.0.0
     continer_name: mysql
 
+  shipping:
+    build:
+      context: ./shipping
+      dockerfile: dockerfile
+    image: jayashankar1994/shipping:1.0.0
+    continer_run: shipping
+
 networks:
   default:
     driver: bridge
