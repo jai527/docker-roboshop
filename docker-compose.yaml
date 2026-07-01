@@ -64,6 +64,9 @@ services:
       dockerfile: dockerfile
     image: jayashankar1994/shipping:1.0.0
     container_name: shipping
+    depends:
+    - mysql
+    - cart
   
   rabbitmq:
     image: rabbitmq:3
@@ -71,7 +74,14 @@ services:
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
     container_name: rabbitmq
-
+  
+  payment:
+    build:
+    context: ./payment
+    dockerfile: dockerfile
+  image: jayashankar1994/payment:1.0.0
+  cotainer_name: payment
+  
 networks:
   default:
     driver: bridge
