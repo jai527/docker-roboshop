@@ -10,7 +10,7 @@ services:
 
   user: 
     build: 
-      conetxt: ./user
+      context: ./user
       dockerfile: dockerfile
     image: jayashankar1994/user:1.0.0
     container_name: user
