@@ -63,7 +63,7 @@ services:
       context: ./shipping
       dockerfile: dockerfile
     image: jayashankar1994/shipping:1.0.0
-    continer_run: shipping
+    continer_name: shipping
 
 networks:
   default:
