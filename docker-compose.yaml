@@ -47,10 +47,13 @@ services:
       dockerfile: Dockerfile
     image: jayashankar1994/mongodb:1.0.0
     container_name: mongodb
-
+    volumes: 
+    - mongodb:/data/db
   redis:
     image: redis:7.0
     container_name: redis
+    volumes: 
+    - redis:/data
 
   mysql:
     build:
@@ -58,6 +61,8 @@ services:
       dockerfile: dockerfile
     image: jayashankar1994/mysql:1.0.0
     container_name: mysql
+    volumes: 
+    - mysql:/var/lib/mysql
 
   shipping:
     build:
@@ -75,6 +80,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
+      volumes: 
+    - rabbitmq:/var/lib/rabbitmq
 
   payment:
     build:
@@ -91,3 +98,9 @@ networks:
     driver: bridge
     name: roboshop
     external: false
+
+volumes:
+  mongodb:
+  mysql:
+  redis:
+  rabbitmq:
