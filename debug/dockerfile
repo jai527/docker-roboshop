@@ -1,0 +1,10 @@
+FROM almalinux:9
+
+RUN dnf install -y \
+    telnet \
+    iputils \
+    net-tools \
+    bind-utils && \
+    dnf clean all
+
+CMD ["sleep", "infinity"]
