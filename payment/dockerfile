@@ -1,14 +1,23 @@
-FROM python:3.9
-EXPOSE 8080
+FROM python:3.9.25-alpine3.22 AS builder
 WORKDIR /app
-COPY payment.ini .
-COPY *.py .
+RUN apk add --no-cache build base linux-header pcre-dev
 COPY requirements.txt .
-RUN pip3 install -r requirements.txt
-ENV CART_HOST: "cart" \
-    CART_PORT: "8080" \
-    USER_HOST: "user" \
-    USER_PORT: "8080" \
-    AMQP_HOST: "roboshop" \
-    AMQP_PASS= "roboshop123"
-CMD ["uwsgi", "--ini", "payment.ini"]
+RUN pip3.9 install --prefix=/install -r requirements.txt
+
+
+
+
+# FROM python:3.9
+# EXPOSE 8080
+# WORKDIR /app
+# COPY payment.ini .
+# COPY *.py .
+# COPY requirements.txt .
+# RUN pip3 install -r requirements.txt
+# ENV CART_HOST: "cart" \
+#     CART_PORT: "8080" \
+#     USER_HOST: "user" \
+#     USER_PORT: "8080" \
+#     AMQP_HOST: "roboshop" \
+#     AMQP_PASS= "roboshop123"
+# CMD ["uwsgi", "--ini", "payment.ini"]
